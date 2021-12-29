@@ -13,17 +13,17 @@ Module imports.
 /*
 File imports.
 */
-#include "./test_board_array.h"
+#include "./tests/test_board_array.h"
 
 int main(int argc, char** argv) {
-    printf("Starting tic-tact-toe main.\n");
+    printf("Starting tic-tac-toe main.\n");
 
     // Select which type of main to run
     char optchar;
     while ((optchar = getopt(argc, argv, "t")) != -1) {
         switch (optchar) {
         case 't':
-            printf("Starting tic-tact-toe test suite.\n");
+            printf("Starting tic-tac-toe test suite.\n");
             test_board_array();
         }
     }

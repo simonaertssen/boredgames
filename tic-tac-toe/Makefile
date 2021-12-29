@@ -1,6 +1,10 @@
 # The sources we're building
-SOURCES = $(wildcard *.c)
-HEADERS = $(wildcard *.h)
+SOURCES = $(wildcard *.c) $(wildcard board/*.c)
+HEADERS = $(wildcard *.h) $(wildcard board/*.h)
+ifeq ($(TEST),1)
+SOURCES += $(wildcard tests/*.c)
+HEADERS += $(wildcard tests/*.h)
+endif
 
 # What we're building
 OBJECTS = $(patsubst %.c,%.o,$(SOURCES))
@@ -9,7 +13,7 @@ PRODUCT = tictactoe
 # What we're building with
 CC = gcc #-Wno-deprecated-declarations -Wno-unused-function # Added this because of legacy timers
 CFLAGS = -std=c99 -Wall -m64
-LDFLAGS = -flto #-fuse-ld=gold This is unknown on my laptop
+LDFLAGS = -I $(shell pwd)/.. -flto #-fuse-ld=gold This is unknown on my laptop
 
 # We need to link against the timing library for whatever OS we're on.
 PLATFORM = $(shell uname)
