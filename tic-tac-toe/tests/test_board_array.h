@@ -9,7 +9,7 @@ Imports
 /*
 Function declarations
 */
-void test_board_array();
-int test_game_over();
+void test_game_over(CuTest *tc);
+CuSuite *StrUtilGetSuite();
 
 #endif // TEST_BOARD_ARRAY_H

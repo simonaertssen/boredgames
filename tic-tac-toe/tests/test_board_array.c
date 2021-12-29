@@ -9,6 +9,7 @@ Module imports.
 /*
 File imports.
 */
+#include "../../testing/CuTest.h"
 #include "../boards/board_array.h"
 
 /* test_game_over
@@ -16,9 +17,13 @@ Test whether the game over functionality works correctly.
 A game should end when three symbols can be found in a line.
 Return true if the test is correct.
 */
-int test_game_over() {
-    // BOARD board[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-    // if (game_over(board) == false) return -1;
+void test_game_over(CuTest *tc) {
+    printf("Testing paths");
+
+    BOARD board[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+    bool expected = true;
+    bool actual = game_over(board);
+    CuAssertBoolEquals(tc, expected, actual);
 
     // board[3] = 1;
     // board[4] = 1;
@@ -27,16 +32,14 @@ int test_game_over() {
 
     // if (game_over(board) == true) return -1;
     // return 0;
-    printf("Testing paths");
-    return 0;
 }
 
 /* test_board_array
 Gather all tests for this class and run them in a single function call.
 */
-void test_board_array() {
-    if (test_game_over() < 0)
-        printf("Test failed\n");
-
-    printf("All board_array tests succeeded.\n");
+CuSuite* board_array_test_suite() {
+    CuSuite* suite = CuSuiteNew();
+    SUITE_ADD_TEST(suite, test_game_over);
+    return suite;
 }
+    

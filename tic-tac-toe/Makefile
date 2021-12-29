@@ -1,10 +1,6 @@
 # The sources we're building
-SOURCES = $(wildcard *.c) $(wildcard board/*.c)
-HEADERS = $(wildcard *.h) $(wildcard board/*.h)
-ifeq ($(TEST),1)
-SOURCES += $(wildcard tests/*.c)
-HEADERS += $(wildcard tests/*.h)
-endif
+SOURCES = $(wildcard *.c) $(wildcard tests/*.c) $(wildcard board/*.c)
+HEADERS = $(wildcard *.h) $(wildcard tests/*.h) $(wildcard board/*.h)
 
 # What we're building
 OBJECTS = $(patsubst %.c,%.o,$(SOURCES))
