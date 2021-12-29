@@ -10,6 +10,6 @@ Imports
 Function declarations
 */
 void test_board_array();
-bool test_game_over();
+int test_game_over();
 
 #endif // TEST_BOARD_ARRAY_H

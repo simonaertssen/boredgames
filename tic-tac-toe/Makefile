@@ -1,16 +1,10 @@
 # The sources we're building
-SOURCES = $(wildcard *.c)
-HEADERS = $(wildcard *.h)
-
-TESTSOURCES = $(wildcard tests/*.c)
-TESTHEADERS = $(wildcard tests/*.h)
+SOURCES = $(wildcard *.c) $(wildcard tests/*.c)
+HEADERS = $(wildcard *.h) $(wildcard tests/*.h)
 
 # What we're building
 OBJECTS = $(patsubst %.c,%.o,$(SOURCES))
-PRODUCT = main
-
-TESTOBJECTS = $(patsubst %.c,%.o,$(TESTSOURCES))
-TEST = test
+PRODUCT = tictactoe
 
 # What we're building with
 CC = gcc #-Wno-deprecated-declarations -Wno-unused-function # Added this because of legacy timers
@@ -57,7 +51,7 @@ $(PRODUCT):	$(OBJECTS) .buildmode
 clean:
 	$(RM) $(PRODUCT) *.o .buildmode *.gcov *.gcno *.gcda *.out.*
 
-# # Make unit tests
+# Make unit tests
 # test:  		$(TEST)
 
 # $(TEST):	$(TESTOBJECTS) .buildmode
