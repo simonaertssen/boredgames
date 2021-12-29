@@ -5,6 +5,8 @@ HEADERS = $(wildcard *.h)
 # What we're building
 OBJECTS = $(patsubst %.c,%.o,$(SOURCES))
 PRODUCT = main
+TESTS = tests
+TESTHEADERS = $(wildcard tests/*.h)
 
 # What we're building with
 CC = gcc -Wno-deprecated-declarations -Wno-unused-function # Added this because of legacy timers
@@ -50,3 +52,7 @@ $(PRODUCT):	$(OBJECTS) .buildmode
 # How to clean up
 clean:
 	$(RM) game *.o .buildmode *.gcov *.gcno *.gcda *.out.*
+
+# Make unit tests
+test: 
+	$(CC) $(TESTHEADERS) 
