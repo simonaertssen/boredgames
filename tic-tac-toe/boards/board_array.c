@@ -1,15 +1,20 @@
 // Represent the board using different data structures
 
+/*
+Module imports.
+*/
 #include <stdint.h>
 #include <assert.h>
 #include <stdbool.h>
 #include <math.h>
 
+/*
+File imports.
+*/
 #include "board_array.h"
 
 /*
 Check whether the game is over.
-
 The positions on the board are encoded as -1 and 1, so a simple sum should do.
 */
 bool game_over(BOARD *board) {

@@ -2,14 +2,18 @@
 SOURCES = $(wildcard *.c)
 HEADERS = $(wildcard *.h)
 
+TESTSOURCES = $(wildcard tests/*.c)
+TESTHEADERS = $(wildcard tests/*.h)
+
 # What we're building
 OBJECTS = $(patsubst %.c,%.o,$(SOURCES))
 PRODUCT = main
-TESTS = tests
-TESTHEADERS = $(wildcard tests/*.h)
+
+TESTOBJECTS = $(patsubst %.c,%.o,$(TESTSOURCES))
+TEST = test
 
 # What we're building with
-CC = gcc -Wno-deprecated-declarations -Wno-unused-function # Added this because of legacy timers
+CC = gcc #-Wno-deprecated-declarations -Wno-unused-function # Added this because of legacy timers
 CFLAGS = -std=c99 -Wall -m64
 LDFLAGS = -flto #-fuse-ld=gold This is unknown on my laptop
 
@@ -51,8 +55,10 @@ $(PRODUCT):	$(OBJECTS) .buildmode
 
 # How to clean up
 clean:
-	$(RM) game *.o .buildmode *.gcov *.gcno *.gcda *.out.*
+	$(RM) $(PRODUCT) *.o .buildmode *.gcov *.gcno *.gcda *.out.*
 
-# Make unit tests
-test: 
-	$(CC) $(TESTHEADERS) 
+# # Make unit tests
+# test:  		$(TEST)
+
+# $(TEST):	$(TESTOBJECTS) .buildmode
+# 	$(CC) $(TESTOBJECTS) $(LDFLAGS) $(EXTRA_LDFLAGS) -o $@
