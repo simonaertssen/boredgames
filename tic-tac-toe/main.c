@@ -13,11 +13,7 @@ Module imports.
 /*
 File imports.
 */
-#include "./tests/run_all.h"
-
-void test() {
-    printf("test\n");
-}
+#include "./test_board_array.h"
 
 int main(int argc, char** argv) {
     printf("Starting tic-tact-toe main.\n");
@@ -28,9 +24,7 @@ int main(int argc, char** argv) {
         switch (optchar) {
         case 't':
             printf("Starting tic-tact-toe test suite.\n");
-            test();
-            run_all_tests();
-            test();
+            test_board_array();
         }
     }
 

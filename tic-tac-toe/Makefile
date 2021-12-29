@@ -1,6 +1,6 @@
 # The sources we're building
-SOURCES = $(wildcard *.c) $(wildcard tests/*.c)
-HEADERS = $(wildcard *.h) $(wildcard tests/*.h)
+SOURCES = $(wildcard *.c)
+HEADERS = $(wildcard *.h)
 
 # What we're building
 OBJECTS = $(patsubst %.c,%.o,$(SOURCES))
@@ -50,9 +50,3 @@ $(PRODUCT):	$(OBJECTS) .buildmode
 # How to clean up
 clean:
 	$(RM) $(PRODUCT) *.o .buildmode *.gcov *.gcno *.gcda *.out.*
-
-# Make unit tests
-# test:  		$(TEST)
-
-# $(TEST):	$(TESTOBJECTS) .buildmode
-# 	$(CC) $(TESTOBJECTS) $(LDFLAGS) $(EXTRA_LDFLAGS) -o $@
