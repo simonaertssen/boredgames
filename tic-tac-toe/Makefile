@@ -1,15 +1,19 @@
 # The sources we're building
-SOURCES = $(wildcard *.c) $(wildcard tests/*.c) $(wildcard board/*.c)
-HEADERS = $(wildcard *.h) $(wildcard tests/*.h) $(wildcard board/*.h)
+SOURCES = $(wildcard *.c) $(wildcard boards/*.c)
+HEADERS = $(wildcard *.h) $(wildcard boards/*.h)
+
+UNITTEST_SOURCES = $(wildcard tests/*.c) ../testing/CuTest.c $(wildcard boards/*.c)
 
 # What we're building
 OBJECTS = $(patsubst %.c,%.o,$(SOURCES))
+UNITTEST_OBJECTS = $(patsubst %.c,%.o,$(UNITTEST_SOURCES))
 PRODUCT = tictactoe
+UNITTESTS = unittests
 
 # What we're building with
 CC = gcc #-Wno-deprecated-declarations -Wno-unused-function # Added this because of legacy timers
 CFLAGS = -std=c99 -Wall -m64
-LDFLAGS = -I $(shell pwd)/.. -flto #-fuse-ld=gold This is unknown on my laptop
+LDFLAGS = -flto #-fuse-ld=gold This is unknown on my laptop -I $(shell pwd)/..
 
 # We need to link against the timing library for whatever OS we're on.
 PLATFORM = $(shell uname)
@@ -47,6 +51,13 @@ all:		$(PRODUCT)
 $(PRODUCT):	$(OBJECTS) .buildmode
 	$(CC) $(OBJECTS) $(LDFLAGS) $(EXTRA_LDFLAGS) -o $@
 
+# Make the unittests
+test: 		$(UNITTESTS)
+			./$(UNITTESTS)
+
+$(UNITTESTS):	$(UNITTEST_SOURCES) .buildmode
+	$(CC) $(UNITTEST_SOURCES) $(LDFLAGS) $(EXTRA_LDFLAGS) -o $@
+
 # How to clean up
 clean:
-	$(RM) $(PRODUCT) *.o .buildmode *.gcov *.gcno *.gcda *.out.*
+	$(RM) $(PRODUCT) $(UNITTESTS) *.o .buildmode *.gcov *.gcno *.gcda *.out.*

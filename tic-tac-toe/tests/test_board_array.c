@@ -21,7 +21,7 @@ void test_game_over(CuTest *tc) {
     printf("Testing paths");
 
     BOARD board[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-    bool expected = true;
+    bool expected = false;
     bool actual = game_over(board);
     CuAssertBoolEquals(tc, expected, actual);
 
