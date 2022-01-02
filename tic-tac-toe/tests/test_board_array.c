@@ -18,28 +18,54 @@ A game should end when three symbols can be found in a line.
 Return true if the test is correct.
 */
 void test_game_over(CuTest *tc) {
-    printf("Testing paths");
+    {
+        BOARD board[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+        bool expected = false;
+        bool actual = game_over(board);
+        CuAssertBoolEquals(tc, expected, actual);
+    }
 
-    BOARD board[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-    bool expected = false;
-    bool actual = game_over(board);
-    CuAssertBoolEquals(tc, expected, actual);
+    {
+        BOARD board[9] = {0, 0, 1, 0, 0, 1, 0, 1, 0};
+        bool expected = false;
+        bool actual = game_over(board);
+        CuAssertBoolEquals(tc, expected, actual);
+    }
 
-    // board[3] = 1;
-    // board[4] = 1;
-    // board[5] = 1;
-    // if (game_over(board) == true) return -1;
+    {
+        BOARD board[9] = {1, 1, 1, 0, 0, 0, 0, 0, 0};
+        bool expected = true;
+        bool actual = game_over(board);
+        CuAssertBoolEquals(tc, expected, actual);
+    }
 
-    // if (game_over(board) == true) return -1;
-    // return 0;
+    {
+        BOARD board[9] = {0, 0, 0, 1, 1, 1, 0, 0, 0};
+        bool expected = true;
+        bool actual = game_over(board);
+        CuAssertBoolEquals(tc, expected, actual);
+    }
+
+    {
+        BOARD board[9] = {0, 0, 0, 0, 0, 0, 1, 1, 1};
+        bool expected = true;
+        bool actual = game_over(board);
+        CuAssertBoolEquals(tc, expected, actual);
+    }
+
+    {
+        BOARD board[9] = {1, 0, 0, 1, 0, 0, 1, 0, 0};
+        bool expected = false;
+        bool actual = game_over(board);
+        CuAssertBoolEquals(tc, expected, actual);
+    }
 }
 
 /* test_board_array
 Gather all tests for this class and run them in a single function call.
 */
-CuSuite* board_array_test_suite() {
-    CuSuite* suite = CuSuiteNew();
+CuSuite *board_array_test_suite() {
+    CuSuite *suite = CuSuiteNew();
     SUITE_ADD_TEST(suite, test_game_over);
     return suite;
 }
-    
