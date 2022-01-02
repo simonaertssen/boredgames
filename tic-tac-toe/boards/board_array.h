@@ -11,4 +11,4 @@ Function declarations
 */
 bool game_over(BOARD *board);
 
-#endif // BOARD_ARRAY_H
+#endif  // BOARD_ARRAY_H

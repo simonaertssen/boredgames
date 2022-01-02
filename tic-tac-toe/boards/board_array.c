@@ -3,9 +3,9 @@
 /*
 Module imports.
 */
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 /*
 File imports.
@@ -17,16 +17,14 @@ Check whether the game is over.
 The positions on the board are encoded as -1 and 1, so a simple sum should do.
 */
 bool game_over(BOARD *board) {
-
     // Check every row
-    for (short i = 0; i < 3; i++) {
-        if (abs(board[i] + board[i+1] + board[i+2]) == 3)
-            return true;
+    for (short i = 0; i < 9; i += 3) {
+        if (abs(board[i] + board[i + 1] + board[i + 2]) == 3) return true;
     }
 
     // Check every column
     for (short i = 0; i < 3; i++) {
-        if (abs(board[i] + board[i+3] + board[i+6]) == 3)
+        if (abs(board[i] + board[i + 3] + board[i + 6]) == 3)
             return true;
     }
 
@@ -36,4 +34,3 @@ bool game_over(BOARD *board) {
 
     return false;
 }
-

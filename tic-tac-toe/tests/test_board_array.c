@@ -18,46 +18,36 @@ A game should end when three symbols can be found in a line.
 Return true if the test is correct.
 */
 void test_game_over(CuTest *tc) {
-    {
-        BOARD board[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-        bool expected = false;
-        bool actual = game_over(board);
-        CuAssertBoolEquals(tc, expected, actual);
+    // First test some boards where the games did not end yet.
+    for (short p = -1; p < 2; p += 2) {
+        {
+            BOARD board[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+            CuAssertBoolEquals(tc, false, game_over(board));
+        }
+        {
+            BOARD board[9] = {0, p, p, p, 0, p, p, p, 0};
+            CuAssertBoolEquals(tc, false, game_over(board));
+        }
     }
 
-    {
-        BOARD board[9] = {0, 0, 1, 0, 0, 1, 0, 1, 0};
-        bool expected = false;
-        bool actual = game_over(board);
-        CuAssertBoolEquals(tc, expected, actual);
-    }
-
-    {
-        BOARD board[9] = {1, 1, 1, 0, 0, 0, 0, 0, 0};
-        bool expected = true;
-        bool actual = game_over(board);
-        CuAssertBoolEquals(tc, expected, actual);
-    }
-
-    {
-        BOARD board[9] = {0, 0, 0, 1, 1, 1, 0, 0, 0};
-        bool expected = true;
-        bool actual = game_over(board);
-        CuAssertBoolEquals(tc, expected, actual);
-    }
-
-    {
-        BOARD board[9] = {0, 0, 0, 0, 0, 0, 1, 1, 1};
-        bool expected = true;
-        bool actual = game_over(board);
-        CuAssertBoolEquals(tc, expected, actual);
-    }
-
-    {
-        BOARD board[9] = {1, 0, 0, 1, 0, 0, 1, 0, 0};
-        bool expected = false;
-        bool actual = game_over(board);
-        CuAssertBoolEquals(tc, expected, actual);
+    // Then test some boards where the game definitely has ended.
+    for (short p = -1; p < 2; p += 2) {
+        {
+            BOARD board[9] = {p, p, p, 0, 0, 0, 0, 0, 0};
+            CuAssertBoolEquals(tc, true, game_over(board));
+        }
+        {
+            BOARD board[9] = {0, 0, p, 0, 0, p, 0, 0, p};
+            CuAssertBoolEquals(tc, true, game_over(board));
+        }
+        {
+            BOARD board[9] = {0, 0, p, 0, p, 0, p, 0, 0};
+            CuAssertBoolEquals(tc, true, game_over(board));
+        }
+        {
+            BOARD board[9] = {p, 0, 0, 0, p, 0, 0, 0, p};
+            CuAssertBoolEquals(tc, true, game_over(board));
+        }
     }
 }
 

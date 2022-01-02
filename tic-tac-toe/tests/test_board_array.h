@@ -12,4 +12,4 @@ Function declarations
 void test_game_over(CuTest *tc);
 CuSuite *StrUtilGetSuite();
 
-#endif // TEST_BOARD_ARRAY_H
+#endif  // TEST_BOARD_ARRAY_H
