@@ -38,7 +38,7 @@ bool is_board_array_game_over(BOARDARRAY *board) {
 /*
 Return a list of possible moves that can be played on the board.
 */
-void *get_board_array_next_moves(BOARDARRAY *board, short *next_moves, short num_moves_played) {
+void get_board_array_next_moves(BOARDARRAY *board, short *next_moves, short num_moves_played) {
     // short *next_moves[9];  // Don't use VLAs for this information, the player knows how many moves are still left as they decrease monotonically.
     short pos, move = 0;
     for (pos = 0; pos < BOARDSIZE; pos++) {
