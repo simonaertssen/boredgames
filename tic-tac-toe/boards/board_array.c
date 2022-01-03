@@ -5,6 +5,7 @@ Module imports.
 */
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 /*
@@ -12,7 +13,19 @@ File imports.
 */
 #include "board_array.h"
 
-/*
+/* print_board_array
+Print the values in the board array;
+*/
+void print_board_array(BOARDARRAY *board) {
+    printf("{%d", board[0]);
+
+    for (short i = 1; i < BOARDSIZE; i++) {
+        printf(", %d", board[i]);
+    }
+    printf("}\n");
+}
+
+/* is_board_array_game_over
 Check whether the game is over.
 The positions on the board are encoded as -1 and 1, so a simple sum should do.
 */
@@ -35,13 +48,13 @@ bool is_board_array_game_over(BOARDARRAY *board) {
     return false;
 }
 
-/*
+/* get_board_array_next_moves
 Return a list of possible moves that can be played on the board.
 */
 void get_board_array_next_moves(BOARDARRAY *board, short *next_moves, short num_moves_played) {
-    // short *next_moves[9];  // Don't use VLAs for this information, the player knows how many moves are still left as they decrease monotonically.
     short pos, move = 0;
     for (pos = 0; pos < BOARDSIZE; pos++) {
         if (board[pos] == 0) next_moves[move++] = pos;
+        // printf("board[%d]=%d, next_moves[%d]=%d\n", pos, board[pos], move, next_moves[move]);
     }
 }

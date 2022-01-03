@@ -57,16 +57,16 @@ These are encoded as a list of shorts.
 */
 void test_get_next_moves(CuTest *tc) {
     BOARDARRAY board[BOARDSIZE] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-    short next_moves[BOARDSIZE];  // Don't use VLAs for this information, the player knows how many moves are still left as they decrease monotonically.
+    short next_moves[BOARDSIZE] = {0, 0, 0, 0, 0, 0, 0, 0, 0};  // Don't use VLAs for this information, the player knows how many moves are still left as they decrease monotonically.
     short num_moves_played, player_sign;
 
     for (num_moves_played = 0; num_moves_played < BOARDSIZE; num_moves_played++) {
-        // Play a move
-        player_sign = (num_moves_played % 2) * 2 - 1;  // Map [0, 1] to [-1, 1]
-        board[num_moves_played] = player_sign;
-        // See if it is the first available move
+        // See if the next available move is the first available move
         get_board_array_next_moves(board, next_moves, num_moves_played);
         CuAssertShortEquals(tc, num_moves_played, next_moves[0]);
+
+        // Play the first available move
+        board[next_moves[0]] = 1;
     }
 }
 

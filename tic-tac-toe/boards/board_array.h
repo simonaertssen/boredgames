@@ -11,6 +11,7 @@ Define the board as a macro wrapping around an array
 /*
 Function declarations
 */
+void print_board_array(BOARDARRAY *board);
 bool is_board_array_game_over(BOARDARRAY *board);
 void get_board_array_next_moves(BOARDARRAY *board, short *next_moves, short num_moves_played);
 
