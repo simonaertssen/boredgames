@@ -3,6 +3,7 @@
 
 #include <setjmp.h>
 #include <stdarg.h>
+#include <stdbool.h>
 
 #define CUTEST_VERSION "CuTest 1.5b"
 
@@ -60,6 +61,12 @@ void CuAssert_Line(CuTest* tc, const char* file, int line, const char* message, 
 void CuAssertStrEquals_LineMsg(CuTest* tc,
                                const char* file, int line, const char* message,
                                const char* expected, const char* actual);
+void CuAssertBoolEquals_LineMsg(CuTest* tc,
+                                const char* file, int line, const char* message,
+                                bool expected, bool actual);
+void CuAssertShortEquals_LineMsg(CuTest* tc,
+                                 const char* file, int line, const char* message,
+                                 short expected, short actual);
 void CuAssertIntEquals_LineMsg(CuTest* tc,
                                const char* file, int line, const char* message,
                                int expected, int actual);
@@ -78,12 +85,12 @@ void CuAssertPtrEquals_LineMsg(CuTest* tc,
 
 #define CuAssertStrEquals(tc, ex, ac) CuAssertStrEquals_LineMsg((tc), __FILE__, __LINE__, NULL, (ex), (ac))
 #define CuAssertStrEquals_Msg(tc, ms, ex, ac) CuAssertStrEquals_LineMsg((tc), __FILE__, __LINE__, (ms), (ex), (ac))
+#define CuAssertBoolEquals(tc, ex, ac) CuAssertBoolEquals_LineMsg((tc), __FILE__, __LINE__, NULL, (ex), (ac))
+#define CuAssertBoolEquals_Msg(tc, ms, ex, ac) CuAssertBoolEquals_LineMsg((tc), __FILE__, __LINE__, (ms), (ex), (ac))
 #define CuAssertShortEquals(tc, ex, ac) CuAssertShortEquals_LineMsg((tc), __FILE__, __LINE__, NULL, (ex), (ac))
 #define CuAssertShortEquals_Msg(tc, ms, ex, ac) CuAssertShortEquals_LineMsg((tc), __FILE__, __LINE__, (ms), (ex), (ac))
 #define CuAssertIntEquals(tc, ex, ac) CuAssertIntEquals_LineMsg((tc), __FILE__, __LINE__, NULL, (ex), (ac))
 #define CuAssertIntEquals_Msg(tc, ms, ex, ac) CuAssertIntEquals_LineMsg((tc), __FILE__, __LINE__, (ms), (ex), (ac))
-#define CuAssertBoolEquals(tc, ex, ac) CuAssertIntEquals_LineMsg((tc), __FILE__, __LINE__, NULL, (ex), (ac))
-#define CuAssertBoolEquals_Msg(tc, ms, ex, ac) CuAssertIntEquals_LineMsg((tc), __FILE__, __LINE__, (ms), (ex), (ac))
 #define CuAssertDblEquals(tc, ex, ac, dl) CuAssertDblEquals_LineMsg((tc), __FILE__, __LINE__, NULL, (ex), (ac), (dl))
 #define CuAssertDblEquals_Msg(tc, ms, ex, ac, dl) CuAssertDblEquals_LineMsg((tc), __FILE__, __LINE__, (ms), (ex), (ac), (dl))
 #define CuAssertPtrEquals(tc, ex, ac) CuAssertPtrEquals_LineMsg((tc), __FILE__, __LINE__, NULL, (ex), (ac))
