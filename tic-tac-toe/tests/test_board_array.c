@@ -56,8 +56,8 @@ Test whether the board returns the right possible positions.
 These are encoded as a list of shorts.
 */
 void test_get_next_moves(CuTest *tc) {
-    BOARDARRAY *board[BOARDSIZE] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-    short *next_moves[BOARDSIZE];  // Don't use VLAs for this information, the player knows how many moves are still left as they decrease monotonically.
+    BOARDARRAY board[BOARDSIZE] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+    short next_moves[BOARDSIZE];  // Don't use VLAs for this information, the player knows how many moves are still left as they decrease monotonically.
     short num_moves_played, player_sign;
 
     for (num_moves_played = 0; num_moves_played < BOARDSIZE; num_moves_played++) {
@@ -66,7 +66,7 @@ void test_get_next_moves(CuTest *tc) {
         board[num_moves_played] = player_sign;
         // See if it is the first available move
         get_board_array_next_moves(board, next_moves, num_moves_played);
-        CuAssertBoolEquals(tc, true, is_board_array_game_over(board));
+        CuAssertShortEquals(tc, num_moves_played, next_moves[0]);
     }
 }
 
